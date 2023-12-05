@@ -1,7 +1,7 @@
 import 'dart:io';
 
 void main() {
-  final input = File('input.part1.txt').readAsLinesSync();
+  final input = File('inputs/day1.txt').readAsLinesSync();
   int sum = 0;
   for (final line in input) {
     final chars = line.split('');

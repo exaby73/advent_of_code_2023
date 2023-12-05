@@ -36,6 +36,4 @@ doc/api/
 
 # End of https://www.toptal.com/developers/gitignore/api/dart
 
-input.txt
-input.*.txt
-
+.idea

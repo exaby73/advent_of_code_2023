@@ -1,0 +1,7 @@
+name: aoc_2023
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  string_scanner: ^1.2.0
