@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:aoc_2023/utils.dart';
+
 final _numberMap = {
   'zero': 0,
   'one': 1,
@@ -14,7 +16,7 @@ final _numberMap = {
 };
 
 void main() {
-  final input = File('inputs/day1.txt').readAsLinesSync();
+  final input = readInputAsLines(1);
   int sum = 0;
   for (final line in input) {
     final backwardLine = line.split('').reversed.join();
