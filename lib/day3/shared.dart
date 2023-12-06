@@ -1,5 +1,6 @@
+import 'package:aoc_2023/utils.dart';
+
 typedef Cell = (int, int);
-typedef InputMatrix = List<List<String>>;
 typedef OutputMatrixOfSurroundingNumbers = List<List<int>>;
 
 extension SumOfNumbers on List<int> {
