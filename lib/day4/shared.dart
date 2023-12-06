@@ -52,8 +52,7 @@ extension CardsX on List<Card> {
 
   int get totalScratchCardsWon {
     final totalCards = Map.fromEntries(map((e) => MapEntry(e.id, 1)));
-    for (int i = 0; i < length; i++) {
-      final card = this[i];
+    for (final card in this) {
       final numberOfWonNumbers = card.numberOfWonNumbers * totalCards[card.id]!;
       for (int j = 0; j < numberOfWonNumbers; j++) {
         totalCards.update(
