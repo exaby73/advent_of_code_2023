@@ -5,12 +5,15 @@ typedef InputMatrix = List<List<String>>;
 
 String readInputAsString(int day, {bool test = false}) {
   final ext = test ? '.test.txt' : '.txt';
-  return File('inputs/day$day$ext').readAsStringSync();
+  return File('inputs/day$day$ext').readAsStringSync().trim();
 }
 
 InputList readInputAsLines(int day, {bool test = false}) {
   final ext = test ? '.test.txt' : '.txt';
-  return File('inputs/day$day$ext').readAsLinesSync();
+  return File('inputs/day$day$ext')
+      .readAsLinesSync()
+      .where((element) => element.isNotEmpty)
+      .toList();
 }
 
 InputMatrix readInputAsMatrix(int day, {bool test = false}) {
