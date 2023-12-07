@@ -19,3 +19,10 @@ InputList readInputAsLines(int day, {bool test = false}) {
 InputMatrix readInputAsMatrix(int day, {bool test = false}) {
   return readInputAsLines(day, test: test).map((e) => e.split('')).toList();
 }
+
+T assertAndReturn<T>(bool assertion, T result) {
+  if (!assertion) {
+    throw AssertionError();
+  }
+  return result;
+}
