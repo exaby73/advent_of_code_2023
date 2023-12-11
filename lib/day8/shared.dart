@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aoc_2023/utils.dart';
 
 typedef Node = ({String left, String right});
@@ -46,10 +48,41 @@ extension Part1Solution on NodesWithDirections {
       final node = nodes[currentCheckingNode]!;
       final direction = directions[step++ % directions.length];
       final nextNode = node.getNodeFrom(direction);
-      if (nextNode == end) {
+      if (RegExp(end).hasMatch(nextNode)) {
         return step;
       }
       currentCheckingNode = nextNode;
     }
+  }
+}
+
+extension StartingNodes on Nodes {
+  List<String> getStartingNodes(String regex) {
+    return entries
+        .where((entry) => RegExp(regex).hasMatch(entry.key))
+        .map((e) => e.key)
+        .toList();
+  }
+}
+
+extension Part2Solution on NodesWithDirections {
+  int gcd(int a, int b) {
+    while (b != 0) {
+      final t = b;
+      b = a % b;
+      a = t;
+    }
+    return a;
+  }
+
+  int lcm(int a, int b) {
+    return (a * b) ~/ gcd(a, b);
+  }
+
+  int stepsBothAtEnd({required String startRegex, required String endRegex}) {
+    final startingNodes = nodes.getStartingNodes(startRegex);
+    return startingNodes.fold(1, (result, node) {
+      return lcm(result, steps(start: node, end: endRegex));
+    });
   }
 }
