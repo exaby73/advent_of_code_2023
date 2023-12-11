@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:aoc_2023/utils.dart';
 
 typedef Node = ({String left, String right});
