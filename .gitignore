@@ -37,3 +37,4 @@ doc/api/
 # End of https://www.toptal.com/developers/gitignore/api/dart
 
 .idea
+.vscode
