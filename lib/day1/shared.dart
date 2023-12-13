@@ -1,8 +1,6 @@
-extension FirstChar on Iterable<String> {
-  String get firstNumberChar {
-    for (final char in this) {
-      if (int.tryParse(char) != null) return char;
-    }
-    throw StateError('No number found in $this');
-  }
+int parseFirstAndLastNumberChars(String line) {
+  final chars = line.split('');
+  final firstNumberChar = chars.first;
+  final lastNumberChar = chars.reversed.first;
+  return int.parse(firstNumberChar + lastNumberChar);
 }

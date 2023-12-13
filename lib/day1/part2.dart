@@ -14,31 +14,46 @@ final _numberMap = {
 };
 
 void main() {
-  final input = readInputAsLines(1);
-  int sum = 0;
-  for (final line in input) {
-    final backwardLine = line.split('').reversed.join();
-    int? first = null;
-    int? second = null;
-    final forwardRegex = RegExp(
-      _numberMap.entries.map((e) => '(${e.key}|${e.value})').join('|'),
-    );
-    final backwardRegex = RegExp(
-      _numberMap.entries
-          .map((e) => '(${e.key.split('').reversed.join()}|${e.value})')
-          .join('|'),
-    );
-    final firstMatch = forwardRegex.firstMatch(line)!;
-    final secondMatch = backwardRegex.firstMatch(backwardLine)!;
-    final firstString = line.substring(firstMatch.start, firstMatch.end);
-    final secondString = backwardLine
-        .substring(secondMatch.start, secondMatch.end)
-        .split('')
-        .reversed
-        .join();
-    first = int.tryParse(firstString) ?? _numberMap[firstString];
-    second = int.tryParse(secondString) ?? _numberMap[secondString];
-    sum += first! * 10 + second!;
+  final inputLines = readInputAsLines(1);
+  int totalSum = 0;
+
+  for (final line in inputLines) {
+    totalSum += calculateSumOfParsedLineNumbers(line);
   }
-  print(sum);
+
+  print(totalSum);
+}
+
+int calculateSumOfParsedLineNumbers(String line) {
+  final reversedLine = line.split('').reversed.join();
+
+  int firstNumber = parseNumberFromLine(line, false);
+  int secondNumber = parseNumberFromLine(reversedLine, true);
+
+  return firstNumber * 10 + secondNumber;
+}
+
+int parseNumberFromLine(String line, bool isReversed) {
+  final String numberPattern = _getRegexPattern(isReversed);
+  final numberRegex = RegExp(numberPattern);
+  final match = numberRegex.firstMatch(line)!;
+  final matchStart = match.start;
+  final matchEnd = match.end;
+  var numberString = line.substring(matchStart, matchEnd);
+  if (isReversed && numberPattern.length > 1) {
+    numberString = numberString.split('').reversed.join();
+  }
+  return int.tryParse(numberString) ?? _numberMap[numberString]!;
+}
+
+String _getRegexPattern(bool isReversed) {
+  late String pattern;
+  if (isReversed) {
+    pattern = _numberMap.entries
+        .map((e) => '(${e.key.split('').reversed.join()}|${e.value})')
+        .join('|');
+  } else {
+    pattern = _numberMap.entries.map((e) => '(${e.key}|${e.value})').join('|');
+  }
+  return pattern;
 }
